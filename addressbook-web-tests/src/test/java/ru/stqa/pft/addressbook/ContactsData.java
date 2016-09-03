@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.model;
+package ru.stqa.pft.addressbook;
 
 public class ContactsData {
   private final String firstname;
@@ -41,7 +41,7 @@ public class ContactsData {
     return address;
   }
 
-  public String getHomephome() {
+  public String getHomephone() {
     return homephome;
   }
 
