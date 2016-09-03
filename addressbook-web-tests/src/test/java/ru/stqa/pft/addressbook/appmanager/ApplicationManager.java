@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Дарья on 03-Sep-16.
  */
-public class ApplicationManager {
+public class ApplicationManager extends GroupHelper {
   FirefoxDriver wd;
 
   public static boolean isAlertPresent(FirefoxDriver wd) {
