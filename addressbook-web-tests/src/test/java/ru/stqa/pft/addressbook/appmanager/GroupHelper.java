@@ -41,7 +41,7 @@ public class GroupHelper extends BaseHelper {
     }
   }
 
-  public void initGroupModofication() {
+  public void initGroupModification() {
     click(By.name("edit"));
   }
 
