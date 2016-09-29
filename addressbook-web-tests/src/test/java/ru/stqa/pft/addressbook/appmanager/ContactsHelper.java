@@ -1,8 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactsData;
 
 /**
@@ -22,7 +25,7 @@ public class ContactsHelper extends BaseHelper {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void fillContactForm(ContactsData contactsData) {
+  public void fillContactForm(ContactsData contactsData, boolean creation) {
     type(By.name("firstname"), contactsData.getFirstname());
     type(By.name("lastname"), contactsData.getLastname());
     type(By.name("nickname"), contactsData.getNickname());
@@ -31,6 +34,12 @@ public class ContactsHelper extends BaseHelper {
     type(By.name("home"), contactsData.getHomephone());
     type(By.name("mobile"), contactsData.getMobilephone());
     type(By.name("email"), contactsData.getEmail1());
+
+    if (creation) {
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void initContactCreation() {
@@ -43,12 +52,10 @@ public class ContactsHelper extends BaseHelper {
 
   public void initContactDeletion() {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
-
   }
 
   public void submitContactDeletion() {
     wd.switchTo().alert().accept();
-
   }
 
   public void initContactModification() {
@@ -56,9 +63,9 @@ public class ContactsHelper extends BaseHelper {
   }
 
   public void submitContactModification() {
-      click(By.name("update"));
-    }
-
+    click(By.name("update"));
   }
+
+}
 
 
