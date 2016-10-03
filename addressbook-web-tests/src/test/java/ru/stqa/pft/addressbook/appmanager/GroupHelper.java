@@ -50,4 +50,15 @@ public class GroupHelper extends BaseHelper {
     click(By.name("update"));
   }
 
+  public void createGroup(GroupData group) {
+    initGroupCreation();
+    fillGroupForm(group);
+    submitGroupCreation();
+    returnToGroupPage();
+
   }
+
+  public boolean isThereAgroup() {
+    return isElementPresent(By.name("selected[]"));
+  }
+}
