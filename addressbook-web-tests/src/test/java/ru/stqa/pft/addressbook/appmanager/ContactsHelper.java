@@ -68,18 +68,17 @@ public class ContactsHelper extends BaseHelper {
 
   public void createContact(ContactsData contact) {
     initContactCreation();
-    fillContactForm(contact);
+    fillContactForm(contact, true);
     submitContactCreation();
     returnToContactsPage();
 
   }
 
-  public void fillContactForm(ContactsData contact) {
-  }
-
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
+
+
 }
 
 
