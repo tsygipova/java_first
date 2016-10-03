@@ -66,6 +66,20 @@ public class ContactsHelper extends BaseHelper {
     click(By.name("update"));
   }
 
+  public void createContact(ContactsData contact) {
+    initContactCreation();
+    fillContactForm(contact);
+    submitContactCreation();
+    returnToContactsPage();
+
+  }
+
+  public void fillContactForm(ContactsData contact) {
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }
 
 
