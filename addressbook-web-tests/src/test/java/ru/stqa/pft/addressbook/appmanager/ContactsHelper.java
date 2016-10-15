@@ -78,6 +78,8 @@ public class ContactsHelper extends BaseHelper {
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
+
+  public void returnToHomePage() {
+    click(By.linkText("home"));
+  }
 }
-
-
