@@ -8,7 +8,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactsData;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,10 +93,10 @@ public class ContactsHelper extends BaseHelper {
 
   public List<ContactsData> getContactsList() {
     List<ContactsData> contacts = new ArrayList<ContactsData>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("td.center"));
+    List<WebElement> elements = wd.findElements(By.name("selected[]"));
     for (WebElement element : elements) {
-      String id = element.getText();
-      ContactsData contact = new ContactsData(id, null, null, null, null, null, null, null, null);
+      String name = element.getText();
+      ContactsData contact = new ContactsData(name, null, null, null, null, null, null, null, null);
       contacts.add(contact);
     }
     return contacts;
