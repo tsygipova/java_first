@@ -82,4 +82,8 @@ public class ContactsHelper extends BaseHelper {
   public void returnToHomePage() {
     click(By.linkText("home"));
   }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
 }
