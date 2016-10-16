@@ -1,13 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.GroupData;
-
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Дарья on 03-Sep-16.
@@ -71,8 +70,8 @@ public class GroupHelper extends BaseHelper {
   }
 
   public java.util.List<GroupData> getGroupList() {
-    java.util.List<GroupData> groups = new ArrayList<GroupData>();
-    java.util.List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    List<GroupData> groups = new ArrayList<GroupData>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
       String name = element.getText();
       GroupData group = new GroupData(name, null, null);
