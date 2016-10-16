@@ -16,7 +16,7 @@ public class ContactsDeletionTests extends TestBase {
       app.getContactsHelper().createContact(new ContactsData("test1", null, null, null, null, null, null, null, null));
 
     }
-    app.getContactsHelper().selectContact();
+    app.getContactsHelper().selectContact(before - 1);
     app.getContactsHelper().initContactDeletion();
     app.getContactsHelper().submitContactDeletion();
     app.getContactsHelper().returnToHomePage();
