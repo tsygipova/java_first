@@ -13,7 +13,7 @@ public class ContactsData {
   private final String group;
 
   public ContactsData(String firstname, String lastname, String nickname, String company, String address, String homephome, String mobilephone, String email1, String group) {
-    this.id = 0;
+    this.id = Integer.MAX_VALUE;
     this.firstname = firstname;
     this.lastname = lastname;
     this.nickname = nickname;
@@ -105,7 +105,6 @@ public class ContactsData {
 
     ContactsData that = (ContactsData) o;
 
-    if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
     if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
@@ -120,8 +119,7 @@ public class ContactsData {
 
   @Override
   public int hashCode() {
-    int result = id;
-    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+    int result = firstname != null ? firstname.hashCode() : 0;
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
     result = 31 * result + (company != null ? company.hashCode() : 0);
