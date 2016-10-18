@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactsData {
+  private final String id;
   private final String firstname;
   private final String lastname;
   private final String nickname;
@@ -12,6 +13,7 @@ public class ContactsData {
   private String group;
 
   public ContactsData(String firstname, String lastname, String nickname, String company, String address, String homephome, String mobilephone, String email1, String group) {
+    this.id = null;
     this.firstname = firstname;
     this.lastname = lastname;
     this.nickname = nickname;
@@ -21,6 +23,23 @@ public class ContactsData {
     this.mobilephone = mobilephone;
     this.email1 = email1;
     this.group = group;
+  }
+
+  public ContactsData(String id, String firstname, String lastname, String nickname, String company, String address, String homephome, String mobilephone, String email1, String group) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.nickname = nickname;
+    this.company = company;
+    this.address = address;
+    this.homephome = homephome;
+    this.mobilephone = mobilephone;
+    this.email1 = email1;
+    this.group = group;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public String getFirstname() {
@@ -62,7 +81,8 @@ public class ContactsData {
   @Override
   public String toString() {
     return "ContactsData{" +
-            "firstname='" + firstname + '\'' +
+            "id='" + id + '\'' +
+            ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
             ", nickname='" + nickname + '\'' +
             ", company='" + company + '\'' +
@@ -81,6 +101,7 @@ public class ContactsData {
 
     ContactsData that = (ContactsData) o;
 
+    if (id != null ? !id.equals(that.id) : that.id != null) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
     if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
@@ -95,7 +116,8 @@ public class ContactsData {
 
   @Override
   public int hashCode() {
-    int result = firstname != null ? firstname.hashCode() : 0;
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
     result = 31 * result + (company != null ? company.hashCode() : 0);
