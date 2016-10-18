@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactsData {
-  private final String id;
+  private int id;
   private final String firstname;
   private final String lastname;
   private final String nickname;
@@ -10,10 +10,10 @@ public class ContactsData {
   private final String homephome;
   private final String mobilephone;
   private final String email1;
-  private String group;
+  private final String group;
 
   public ContactsData(String firstname, String lastname, String nickname, String company, String address, String homephome, String mobilephone, String email1, String group) {
-    this.id = null;
+    this.id = 0;
     this.firstname = firstname;
     this.lastname = lastname;
     this.nickname = nickname;
@@ -25,7 +25,7 @@ public class ContactsData {
     this.group = group;
   }
 
-  public ContactsData(String id, String firstname, String lastname, String nickname, String company, String address, String homephome, String mobilephone, String email1, String group) {
+  public ContactsData(int id, String firstname, String lastname, String nickname, String company, String address, String homephome, String mobilephone, String email1, String group) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -38,8 +38,12 @@ public class ContactsData {
     this.group = group;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getFirstname() {
@@ -101,7 +105,7 @@ public class ContactsData {
 
     ContactsData that = (ContactsData) o;
 
-    if (id != null ? !id.equals(that.id) : that.id != null) return false;
+    if (id != that.id) return false;
     if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
     if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
     if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
@@ -116,7 +120,7 @@ public class ContactsData {
 
   @Override
   public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
+    int result = id;
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
