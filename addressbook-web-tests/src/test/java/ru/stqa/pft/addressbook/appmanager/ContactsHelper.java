@@ -1,16 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactsData;
-
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Дарья on 03-Sep-16.
@@ -41,8 +37,8 @@ public class ContactsHelper extends BaseHelper {
     click(By.linkText("add new"));
   }
 
-  public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void initContactDeletion() {
@@ -68,16 +64,16 @@ public class ContactsHelper extends BaseHelper {
     returnToContactsPage();
   }
 
-  public void modify(int index, ContactsData contact) {
-    selectContact(index);
+  public void modify(ContactsData contact) {
+    selectContactById(contact.getId());
     initContactModification();
     fillContactForm(contact);
     submitContactModification();
     returnToHomePage();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+  public void delete(ContactsData contact) {
+    selectContactById(contact.getId());
     initContactDeletion();
     submitContactDeletion();
     returnToHomePage();
@@ -95,8 +91,8 @@ public class ContactsHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactsData> list() {
-    List<ContactsData> contacts = new ArrayList<ContactsData>();
+  public Set<ContactsData> all() {
+    Set<ContactsData> contacts = new HashSet<ContactsData>();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
