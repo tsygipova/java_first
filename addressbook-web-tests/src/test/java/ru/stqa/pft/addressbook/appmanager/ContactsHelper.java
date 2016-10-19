@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.ContactsData;
 import java.util.HashSet;
 import java.util.List;
@@ -91,8 +92,8 @@ public class ContactsHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public Set<ContactsData> all() {
-    Set<ContactsData> contacts = new HashSet<ContactsData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
