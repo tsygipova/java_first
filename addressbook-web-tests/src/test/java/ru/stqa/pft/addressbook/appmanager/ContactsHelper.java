@@ -83,7 +83,6 @@ public class ContactsHelper extends BaseHelper {
     returnToHomePage();
   }
 
-
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -109,8 +108,7 @@ public class ContactsHelper extends BaseHelper {
       String email1 = cells.get(6).getText();
 
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      ContactsData contact = new ContactsData(id, firstname, lastname, null, null, null);
-      contacts.add(contact);
+      contacts.add(new ContactsData().withId(id).withFirstname(firstname).withLastname(lastname));
     }
     return contacts;
   }
