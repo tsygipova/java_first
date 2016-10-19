@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactsData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,7 @@ public class ContactsHelper extends BaseHelper {
   public void fillContactForm(ContactsData contactsData) {
     type(By.name("firstname"), contactsData.getFirstname());
     type(By.name("lastname"), contactsData.getLastname());
-    type(By.name("nickname"), contactsData.getNickname());
-    type(By.name("company"), contactsData.getCompany());
     type(By.name("address"), contactsData.getAddress());
-    type(By.name("home"), contactsData.getHomephone());
     type(By.name("mobile"), contactsData.getMobilephone());
     type(By.name("email"), contactsData.getEmail1());
   }
@@ -56,19 +54,35 @@ public class ContactsHelper extends BaseHelper {
   }
 
   public void initContactModification() {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    click(By.xpath("//table[@id='maintable']/tbody/tr[9]/td[8]/a/img"));
   }
 
   public void submitContactModification() {
     click(By.name("update"));
   }
 
-  public void createContact(ContactsData contact) {
+  public void create(ContactsData contact) {
     initContactCreation();
     fillContactForm(contact);
     submitContactCreation();
     returnToContactsPage();
   }
+
+  public void modify(int index, ContactsData contact) {
+    selectContact(index);
+    initContactModification();
+    fillContactForm(contact);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    initContactDeletion();
+    submitContactDeletion();
+    returnToHomePage();
+  }
+
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
@@ -82,24 +96,20 @@ public class ContactsHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactsData> getContactsList() {
+  public List<ContactsData> list() {
     List<ContactsData> contacts = new ArrayList<ContactsData>();
     List<WebElement> rows = wd.findElements(By.name("entry"));
-    for (WebElement row : rows)  {
-      List<WebElement>cells = row.findElements(By.tagName("td"));
+    for (WebElement row : rows) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
 
       String firstname = cells.get(2).getText();
       String lastname = cells.get(3).getText();
-      String nickname = cells.get(4).getText();
-      String company = cells.get(5).getText();
-      String address = cells.get(6).getText();
-      String homephome = cells.get(7).getText();
-      String mobilephone = cells.get(8).getText();
-      String email1 = cells.get(9).getText();
-      String group = cells.get(10).getText();
+      String address = cells.get(4).getText();
+      String mobilephone = cells.get(5).getText();
+      String email1 = cells.get(6).getText();
 
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      ContactsData contact = new ContactsData(id, firstname, lastname, null, null, null, null, null, null, null);
+      ContactsData contact = new ContactsData(id, firstname, lastname, null, null, null);
       contacts.add(contact);
     }
     return contacts;

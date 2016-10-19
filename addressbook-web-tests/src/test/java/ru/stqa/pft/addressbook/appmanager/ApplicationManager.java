@@ -53,15 +53,15 @@ public class ApplicationManager {
     wd.findElement(By.linkText("home page")).click();
   }
 
-  public GroupHelper getGroupHelper() {
+  public GroupHelper group() {
     return groupHelper;
   }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 
-  public ContactsHelper getContactsHelper() {
+  public ContactsHelper contacts() {
     return contactsHelper;
   }
 }
