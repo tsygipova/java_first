@@ -39,20 +39,12 @@ public class ContactsHelper extends BaseHelper {
     type(By.name("email"), contactsData.getEmail1());
   }
 
-//    if (creation) {
-//      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
-//    } else {
-//      Assert.assertFalse(isElementPresent(By.name("new_group")));
-//    }
-//  }
-
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
-
   }
 
   public void initContactDeletion() {
@@ -76,7 +68,6 @@ public class ContactsHelper extends BaseHelper {
     fillContactForm(contact);
     submitContactCreation();
     returnToContactsPage();
-
   }
 
   public boolean isThereAContact() {
@@ -93,10 +84,12 @@ public class ContactsHelper extends BaseHelper {
 
   public List<ContactsData> getContactsList() {
     List<ContactsData> contacts = new ArrayList<ContactsData>();
-    List<WebElement> elements = wd.findElements(By.name("entry"));
-    for (WebElement element : elements) {
-      String name = element.getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+    List<WebElement> rows = wd.findElements(By.name("entry"));
+    for (WebElement row : rows)  {
+      String name = row.getText();
+      List<WebElement>cells = row.findElements(By.tagName("td"));
+
+      int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
       ContactsData contact = new ContactsData(id, name, null, null, null, null, null, null, null, null);
       contacts.add(contact);
     }

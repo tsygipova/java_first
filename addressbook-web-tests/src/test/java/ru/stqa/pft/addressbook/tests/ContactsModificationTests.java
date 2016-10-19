@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ContactsModificationTests extends TestBase {
 
-  @Test
+  @Test (enabled = true)
   public void testContactsModification(){
     if (! app.getContactsHelper().isThereAContact()) {
       app.getContactsHelper().createContact(new ContactsData("test1", null, null, null, null, null, null, null, null));
