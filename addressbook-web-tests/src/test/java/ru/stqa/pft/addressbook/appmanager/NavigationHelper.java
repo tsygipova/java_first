@@ -29,7 +29,7 @@ public class NavigationHelper extends BaseHelper {
   }
 
   public void gotoContactsPage() {
-    click(By.linkText("contacts"));
+    click(By.linkText("home"));
   }
 
 }
