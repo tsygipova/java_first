@@ -5,9 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.ContactsData;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Дарья on 03-Sep-16.
@@ -38,6 +37,13 @@ public class ContactsHelper extends BaseHelper {
     click(By.linkText("add new"));
   }
 
+  public void goToContactTab() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
+
   public void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
@@ -58,25 +64,35 @@ public class ContactsHelper extends BaseHelper {
     click(By.name("update"));
   }
 
+  public void returnToHomePage() {
+    click(By.linkText("home"));
+  }
+
   public void create(ContactsData contact) {
+    goToContactTab();
     initContactCreation();
     fillContactForm(contact);
     submitContactCreation();
+    contactCache = null;
     returnToContactsPage();
   }
 
   public void modify(ContactsData contact) {
+    goToContactTab();
     selectContactById(contact.getId());
     initContactModification();
     fillContactForm(contact);
     submitContactModification();
+    contactCache = null;
     returnToHomePage();
   }
 
   public void delete(ContactsData contact) {
+    goToContactTab();
     selectContactById(contact.getId());
     initContactDeletion();
     submitContactDeletion();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -84,16 +100,17 @@ public class ContactsHelper extends BaseHelper {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void returnToHomePage() {
-    click(By.linkText("home"));
-  }
-
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
       List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -105,8 +122,8 @@ public class ContactsHelper extends BaseHelper {
       String email1 = cells.get(6).getText();
 
       int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactsData().withId(id).withFirstname(firstname).withLastname(lastname));
+      contactCache.add(new ContactsData().withId(id).withFirstname(firstname).withLastname(lastname));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 }
